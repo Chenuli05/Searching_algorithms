@@ -7,7 +7,7 @@ def node_to_xy(node):
     x = node % grid_size
     y = node // grid_size
 
-    return (x, y)
+    return x, y
 
 def xy_to_node(x, y):
     return y * grid_size + x
@@ -25,26 +25,40 @@ def generate_maze():
     # choose 4 random barriers
     barriers = random.sample(remaining_nodes, 4)
 
-    maze = {
+    return {
         "start": start,
         "goal": goal,
         "barriers": barriers
     }
 
-    return maze
+def get_neighbors(node, barriers):
+    x, y = node_to_xy(node)
+
+    directions = [
+        (-1, 0), (1,0),
+        (0,-1), (0,1),
+        (-1,-1), (-1,1),
+        (1, -1), (1,1)
+    ]
+    neighbors = []
+
+    for dx, dy in directions:
+        nx, ny= x+dx, y+dy
+        if 0 <= nx < grid_size and 0 <= ny < grid_size:
+            nxt = xy_to_node(nx, ny)
+            if nxt not in barriers:
+                neighbors.append(nxt)
+    return sorted(neighbors)
 
 # example run
-maze = generate_maze()
+# maze = generate_maze()
+#
 
-print("Start node:", maze["start"], "Coordinates:", node_to_xy(maze["start"]))
-print("Goal node:", maze["goal"], "Coordinates:", node_to_xy(maze["goal"]))
-print("Barrier nodes:", maze["barriers"])
-print("Barrier coordinates:", [node_to_xy(node) for node in maze["barriers"]])
 
 def print_maze(maze):
-    for y in range(grid_size):
+    for x in range(grid_size):
         row = []
-        for x in range(grid_size):
+        for y in range(grid_size):
             node = xy_to_node(x, y)
 
             if node == maze["start"]:
@@ -57,4 +71,3 @@ def print_maze(maze):
                 row.append(str(node))
         print("\t".join(row))
 
-print_maze(maze)
