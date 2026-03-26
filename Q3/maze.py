@@ -4,13 +4,13 @@ grid_size = 6
 total_nodes = grid_size * grid_size
 
 def node_to_xy(node):
-    x = node % grid_size
-    y = node // grid_size
+    x = node // grid_size
+    y = node % grid_size
 
     return x, y
 
 def xy_to_node(x, y):
-    return y * grid_size + x
+    return x * grid_size + y
 
 def generate_maze():
     # start node from 0 to 11
@@ -56,9 +56,9 @@ def get_neighbors(node, barriers):
 
 
 def print_maze(maze):
-    for x in range(grid_size):
+    for y in range(grid_size):
         row = []
-        for y in range(grid_size):
+        for x in range(grid_size):
             node = xy_to_node(x, y)
 
             if node == maze["start"]:

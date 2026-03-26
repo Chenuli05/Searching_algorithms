@@ -1,5 +1,6 @@
 from maze import *
 from search_iddfs import *
+from best_first_search import best_first_search
 
 maze = generate_maze()
 
@@ -22,7 +23,7 @@ result = iddfs(
 )
 
 print("Visited node:", result["visited_order"])
-print("Time taken:", result["time_taken"])
+print("Time taken:", result["time_taken"], "minutes")
 print("Final path:", result["final path"])
 
 if result["final path"] is not None:
@@ -46,3 +47,13 @@ if result["final path"] is not None:
 
     for node in [maze["start"], 7, 13, 20]:
         print(f"h({node}) = {chebyshev_distance(node, maze['goal'])}")
+
+best_first_result = best_first_search(
+    start=maze["start"],
+    goal=maze["goal"],
+    barriers=set(maze["barriers"]),
+)
+print("\nBest first search result:")
+print("Visited node:", best_first_result["visited_nodes"])
+print("Time taken:", best_first_result["time_taken"], "minutes")
+print("Final path:", best_first_result["final_path"])
