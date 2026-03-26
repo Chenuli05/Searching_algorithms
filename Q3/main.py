@@ -1,5 +1,5 @@
 from maze import *
-from search_iddfs import iddfs, edge_cost
+from search_iddfs import *
 
 maze = generate_maze()
 
@@ -37,3 +37,12 @@ if result["final path"] is not None:
         print(f"{n1} -> {n2} : {cost:.3f}")
 
     print("Total path cost:", round(total_cost, 3))
+    print()
+#viewing the heuristic cost for each node
+    h = chebyshev_distance(maze["start"], maze["goal"])
+    print("Heuristic cost of start node:", h)
+
+    print("Heuristic from start to goal:", chebyshev_distance(maze["start"], maze["goal"]))
+
+    for node in [maze["start"], 7, 13, 20]:
+        print(f"h({node}) = {chebyshev_distance(node, maze['goal'])}")

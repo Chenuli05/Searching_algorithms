@@ -58,5 +58,9 @@ def iddfs(start, goal, barriers, max_depth=36):
         "final path": None
     }
 
+def chebyshev_distance(node, goal_node):
+    x1, y1 = node_to_xy(node)
+    x2, y2 = node_to_xy(goal_node)
 
+    return max(abs(x1 - x2), abs(y1 - y2)) #given equation
 
