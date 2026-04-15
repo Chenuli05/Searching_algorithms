@@ -1,6 +1,6 @@
 from maze import *
 from search_iddfs import *
-from best_first_search import best_first_search
+from best_first_search import *
 
 maze = generate_maze()
 
