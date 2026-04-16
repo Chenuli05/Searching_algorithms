@@ -27,14 +27,14 @@ def diagonal_distance(node, goal_node):
     dy = abs(y1 - y2)
     return max(dx, dy) + (math.sqrt(2) - 1) * min(dx, dy)
 
-def best_first_search(start, goal, barriers):
+def best_first_search(start, goal, barriers,heuristic_function):
     visited_nodes = []
     visited_set = set()
 
     # priority queue items: (heuristic, node, path)
     frontier = []
     #change the heuristic function
-    heapq.heappush(frontier, (chebyshev_distance(start, goal), start, [start]))
+    heapq.heappush(frontier, (heuristic_function(start, goal), start, [start]))
 
     while frontier:
         h, current, path = heapq.heappop(frontier)
@@ -56,7 +56,7 @@ def best_first_search(start, goal, barriers):
             if neighbor not in visited_set:
                 heapq.heappush(
                     frontier,
-                    (chebyshev_distance(neighbor, goal), neighbor, path + [neighbor])
+                    (heuristic_function(neighbor, goal), neighbor, path + [neighbor])
                 )
 
     return {
